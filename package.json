@@ -1,0 +1,19 @@
+{
+  "name": "crop2cash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abegunde99/crop2cash.git"
+  },
+  "author": "Abegunde precious",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abegunde99/crop2cash/issues"
+  },
+  "homepage": "https://github.com/Abegunde99/crop2cash#readme"
+}
