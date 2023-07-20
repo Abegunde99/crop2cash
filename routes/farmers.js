@@ -4,8 +4,8 @@ const router = express.Router();
 
 router.get('/createDatabase', createDatabase);
 router.get('/createTable', createTable);
-router.post('/createFarmer', createFarmer);
-router.get('/getFarmers', getFarmers);
+router.post('/', createFarmer);
+router.get('/', getFarmers);
 
 module.exports = router;
 

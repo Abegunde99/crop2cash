@@ -57,24 +57,107 @@ class Farmer {
   
     static async getFarmers(attributes, filter) {
         return new Promise((resolve, reject) => {
+            
             let query = 'SELECT ?? FROM farmers';
             let queryParams = [attributes];
+
+            if (!attributes) {
+                query = 'SELECT * FROM farmers';
+                queryParams = [];
+            } else {
+                if (attributes.includes(',')) {
+                    const attributesArray = attributes.split(',');
+                    for (let i = 0; i < attributesArray.length; i++) {
+                        attributesArray[i] = attributesArray[i].trim();
+                    }
+                    queryParams = [attributesArray];
+                }
+            }
+            
+            if(filter === undefined && attributes === undefined) {
+                query = 'SELECT * FROM farmers';
+                queryParams = [];
+            }
+
         
             if (filter) {
-                const [filter_Key, filter_Value] = filter.split(':');
-        
-                if (filter_Key === 'age') {
-                    if (filter_Value.includes('-')) {
-                        const [minAge, maxAge] = filter_Value.split('-');
-                        query += ' WHERE age BETWEEN ? AND ?';
-                        queryParams.push(minAge, maxAge);
-                    } else {
-                        query += ' WHERE age = ?';
-                        queryParams.push(filter_Value);
+                if (filter.includes(',')) {
+                    const filterArray = filter.split(',');
+                    for (let i = 0; i < filterArray.length; i++) {
+                        filterArray[i] = filterArray[i].trim();
                     }
-                } else if (filter_Key === 'crops') {
-                    query += ' WHERE crops LIKE ?';
-                    queryParams.push(`%${filter_Value}%`);
+                    filter = filterArray;
+                }
+                if (typeof filter === 'object') {
+                    filter.forEach((filter) => {
+                        const [filter_Key, filter_Value] = filter.split(':');
+                        if (filter_Key === 'age') {
+                            if (filter_Value.includes('-')) {
+                                const [minAge, maxAge] = filter_Value.split('-');
+                                if (query.includes('WHERE')) {
+                                    query += ' AND age BETWEEN ? AND ?';
+                                } else {
+                                    query += ' WHERE age BETWEEN ? AND ?';
+                                }
+                                queryParams.push(minAge, maxAge);
+                            } else {
+                                if (query.includes('WHERE')) {
+                                    query += ' AND age = ?';
+                                } else {
+                                    query += ' WHERE age = ?';
+                                }
+                                queryParams.push(filter_Value);
+                            }
+                        }
+                        if (filter_Key !== 'age' && filter_Key !== 'crops') {
+                            if (query.includes('WHERE')) {
+                                query += ' AND ?? = ?';
+                            } else {
+                                query += ' WHERE ?? = ?';
+                            }
+                            queryParams.push(filter_Key, filter_Value);
+                        }
+
+                        if (filter_Key === 'crops') {
+                            if (query.includes('WHERE')) {
+                                query += ' AND crops LIKE ?';
+                            } else {
+                                query += ' WHERE crops LIKE ?';
+                            }
+                            queryParams.push(`%${filter_Value}%`);
+                        }
+
+                        if(filter_Key != 'age' && filter_Key != 'crops' && filter_Key != 'first_name' && filter_Key != 'last_name' && filter_Key != 'phone_number' && filter_Key != 'address') {
+                            reject(new ErrorResponse(`Invalid filter key: ${filter_Key}`, 400));
+                        }
+                    });
+                } else {
+                    let [filter_Key, filter_Value] = filter.split(':');
+        
+                    if (filter_Key === 'age') {
+                        if (filter_Value.includes('-')) {
+                            const [minAge, maxAge] = filter_Value.split('-');
+                            query += ' WHERE age BETWEEN ? AND ?';
+                            queryParams.push(minAge, maxAge);
+                        } else {
+                            query += ' WHERE age = ?';
+                            queryParams.push(filter_Value);
+                        }
+                    }
+
+                    if (filter_Key !== 'age' && filter_Key !== 'crops') {
+                        query += ' WHERE ?? = ?';
+                        queryParams.push(filter_Key, filter_Value);
+                    }
+
+                    if (filter_Key === 'crops') {
+                        query += ' WHERE crops LIKE ?';
+                        queryParams.push(`%${filter_Value}%`);
+                    }
+
+                    if(filter_Key != 'age' && filter_Key != 'crops' && filter_Key != 'first_name' && filter_Key != 'last_name' && filter_Key != 'phone_number' && filter_Key != 'address') {
+                        reject(new ErrorResponse(`Invalid filter key: ${filter_Key}`, 400));
+                    }
                 }
             }
         
