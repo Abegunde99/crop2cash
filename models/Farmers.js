@@ -13,7 +13,7 @@ class Farmer {
     // }
     static async createDatabase() { 
         return new Promise((resolve, reject) => {
-            db.query('CREATE DATABASE IF NOT EXISTS CROP2CASH', (err, result) => {
+            db.query('CREATE DATABASE IF NOT EXISTS bjcjotrusqwez1uwbfl0', (err, result) => {
                 if (err) {
                     reject(err);
                 } else {

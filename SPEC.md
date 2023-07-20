@@ -7,10 +7,8 @@ This API serves as the back-end for the Farmer Management System, allowing clien
 ## Base URL
 
 ```
-http://localhost:3000
+https://farmers-management-system.onrender.com
 ```
-
-Replace `localhost:3000` with the actual base URL where the API is hosted.
 
 ## Endpoints
 
