@@ -2,6 +2,11 @@
 
 This is a Farmer Management System back-end application built with Node.js and MySQL.
 
+## Documentation
+    ```
+    https://documenter.getpostman.com/view/21616732/2s946k5VYF
+    ```
+
 ## Setup Instructions
 
 1. Clone the repository:
