@@ -3,9 +3,7 @@
 This is a Farmer Management System back-end application built with Node.js and MySQL.
 
 ## Documentation
-    ```
     https://documenter.getpostman.com/view/21616732/2s946k5VYF
-    ```
 
 ## Setup Instructions
 
@@ -76,7 +74,7 @@ This is a Farmer Management System back-end application built with Node.js and M
     - Description: Retrieve farmers based on filters.
     - Query Parameters:
         - `attributes`: Comma-separated list of attributes to include in the response.`attributes=value`
-        - `filter`: Filter criteria in the format `filter:value`. Supported filters:
+        - `filter`: Filter criteria in the format `filter=value`. Supported filters:
 
     ## Technologies Used
 
