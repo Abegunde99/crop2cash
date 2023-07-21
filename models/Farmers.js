@@ -11,9 +11,9 @@ class Farmer {
     //     this.address = address;
     //     this.crop = crop;
     // }
-    static async createDatabase() { 
+    static async createDatabase(database) { 
         return new Promise((resolve, reject) => {
-            db.query('CREATE DATABASE IF NOT EXISTS bjcjotrusqwez1uwbfl0', (err, result) => {
+            db.query(`CREATE DATABASE IF NOT EXISTS ${database} `, (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -43,9 +43,9 @@ class Farmer {
         });
     }
 
-    static async createFarmer(farmer) {
+    static async createFarmer({first_name, last_name, phone_number, age, address,crops}) {
         return new Promise((resolve, reject) => {
-            db.query('INSERT INTO farmers SET ?', farmer, (err, result) => {
+            db.query('INSERT INTO farmers SET ?', {first_name, last_name, phone_number, age, address,crops}, (err, result) => {
                 if (err) {
                     reject(err);
                 } else {

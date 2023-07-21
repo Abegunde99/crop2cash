@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const hpp = require('hpp');
@@ -10,9 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-// Sanitize data
-app.use(mongoSanitize());
 
 // Set security headers
 app.use(helmet());

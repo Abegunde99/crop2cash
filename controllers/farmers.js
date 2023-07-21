@@ -7,7 +7,8 @@ const asyncHandler = require('../middlewares/async');
 //@route GET /api/v1/farmers/createDatabase
 //@access Public
 exports.createDatabase = asyncHandler(async (req, res, next) => { 
-    await Farmer.createDatabase();
+    const database = 'bjcjotrusqwez1uwbfl0'; //the db name was manually assigned from the cloud database
+    await Farmer.createDatabase(database);
     res.status(200).json({
         success: true,
         message: 'Database created'
@@ -31,8 +32,8 @@ exports.createTable = asyncHandler(async (req, res, next) => {
 //@route POST /api/v1/farmers
 //@access Public
 exports.createFarmer = asyncHandler(async (req, res, next) => { 
-    const farmer = req.body;
-    await Farmer.createFarmer(farmer);
+    const {first_name, last_name, phone_number, age, address,crops} = req.body;
+    await Farmer.createFarmer({first_name, last_name, phone_number, age, address,crops});
     res.status(200).json({
         success: true,
         message: 'Farmer inserted'
