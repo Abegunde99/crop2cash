@@ -134,7 +134,7 @@ example of a request to the API
 
 ```bash
 curl -X POST \
-  http://localhost:3000/farmers \
+  https://farmers-management-system.onrender.com/farmers \
   -H 'Content-Type: application/json' \
   -d '{
     "first_name": "John",
@@ -148,7 +148,7 @@ curl -X POST \
 
 ```bash
 curl -X GET \
-  'http://localhost:3000/farmers?attributes=id,first_name,last_name&filter=age:30-40,first_name:John,crops:maize' \
+  'https://farmers-management-system.onrender.com/farmers?attributes=id,first_name,last_name&filter=age:30-40,first_name:John,crops:maize' \
   -H 'Content-Type: application/json' \
   -d '{
     "first_name": "John",
